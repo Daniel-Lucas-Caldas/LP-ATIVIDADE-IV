@@ -3,74 +3,57 @@
 #include <locale.h>
 #include <string.h>
 
-#define SALDO 100
+#define TAM 3
 
-   struct conta_bancaria{
-        char numeroDaConta[200];
-        char nomeDoTitular[200];
-        char tipoDeConta[200];
+   struct dados_contatos {
+        char nome[200];
+        char email[200];
+        char telefone[200];
     };
 
-    void pesquisarDeposito(float depositarQuantidade) {
-        float saldoFinal;
+    void pesquisarContato(struct dados_contatos *contatos, char *contato) {
         int i;
 
-       saldoFinal = depositarQuantidade + SALDO;
-
-        printf("valor depositou R$%.2f em sua conta \n", depositarQuantidade);
-        printf("Saldo atual: R$%.2f", saldoFinal);
-    }
-
-    void pesquisarSaque(float sacarQuantidade) {
-        float saldoFinal;
-        int i;
-
-       saldoFinal = SALDO - sacarQuantidade;
-
-        printf("valor retirou R$%.2f da sua conta \n", sacarQuantidade);
-        printf("Saldo atual: R$%.2f", saldoFinal);
+        for (i = 0; i < TAM; i++) {
+           if (strcmp(contatos[i].nome, contato) == 0) {
+           	   printf("Resultado da pesquisa");
+               printf("Nome: %s \n", contatos[i].nome);
+               printf("E-mail: %s \n", contatos[i].email);
+               printf("Telefone: %s \n", contatos[i].telefone);
+               return;
+           }   
+        }
+        printf("Contato não encontrado. \n");
     }
 
 int main () {
-	setlocale(LC_ALL, "portuguese");
-	
-    struct conta_bancaria banco;
-    float depositarQuantidade;
-    float sacarQuantidade;
-    int opcao;
-
-    printf("Digite os seus dados\n");
-
-    printf("Digite o número da conta: ");
-    gets(banco.numeroDaConta);
-
-    printf("Digite o nome do titular: ");
-    gets(banco.nomeDoTitular);
+    setlocale(LC_ALL, "portuguese");
     
-    printf("Digite o tipo de serviço: P - poupança e C - conta corrente: ");
-    gets(banco.tipoDeConta);
-    
-    printf("\nDigite a opção que deseja realizar\n");
+    struct dados_contatos contatos[TAM];
+	char contato[200];
+    int i;
 
-	printf("|--------------Opções---------|\n");
-    printf("|codigo | alternatinas        |\n");
-    printf("|1      | Realizar desposito  |\n");
-    printf("|2      | Realizar saque      |\n");
-    printf("|3      | Sair do programa    |\n");
-    printf("|---------------Fim-----------|\n");
+    for (i = 0; i < TAM; i++) {
+         printf("Cadastro de Contatos %d:\n", i + 1);
+         printf("Digite o nome do contato: ");
+         gets(contatos[i].nome);
 
-    printf("opção: ");
-	scanf("%i", &opcao);
+         printf("Digite o e-mail do contato: ");
+         gets(contatos[i].email);
 
-    if (opcao == 1) {
-        printf("Digite o valor que deseja depositar: ");
-        scanf("%f", &depositarQuantidade);
-        pesquisarDeposito(depositarQuantidade);
-    } else {
-        printf("Digite o valor que deseja sacar: ");
-        scanf("%f", &sacarQuantidade);
-        pesquisarSaque(sacarQuantidade);
-    }   
+         printf("Digite o número do telefone do contato: ");
+         gets(contatos[i].telefone);
+        printf("\n");
+    }
 
-return 0;
-}
+    printf("\n-----Seleção de contatos-----\n");
+    printf("Digite o nome do contato que deseja as informações: ");
+    gets(contato);
+    printf("\n");
+
+    pesquisarContato(contatos, contato);
+
+    printf("\nExibindo os dados do contato... \n");
+  
+    return 0;
+ }
