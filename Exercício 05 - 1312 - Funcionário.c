@@ -20,8 +20,8 @@ float mediaSalario(struct dados funcionario[], int total) {
       contador++;
       soma += funcionario[i].salario;
     }
-
   }
+  
   if (contador > 0) {
     return soma / (float)contador;
   } else {
@@ -31,7 +31,6 @@ float mediaSalario(struct dados funcionario[], int total) {
 
 int main() {
   setlocale(LC_ALL, "portuguese");
-
   int opcao = 0, i = 0;
 
   struct dados funcionario[TAM];
@@ -54,11 +53,9 @@ int main() {
 
       printf("Digite o valor do salario: ");
       scanf("%f", &funcionario[i].salario);
-     
       i++;
       
       system("cls||clear");
-      
       break;
 
     case 2:
